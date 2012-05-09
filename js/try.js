@@ -32,8 +32,23 @@ $(document).ready(function(){
 			endRange = evt.data.range.end;
 			var r = new Range(startRange.row, startRange.column,
 								endRange.row, endRange.column);
-			session.addMarker(r, "error-marker","text");
+			session.addMarker(r, "nbverror-marker","text");
 			$("#error-notification").text(e.message);
 		}
 	});
 });
+
+
+var log = function(){
+	var i,
+		logs;
+	logs = [];
+	for(i=0; i < arguments.length; i++){
+		if(typeof arguments[i] === "object"){
+			logs.push(JSON.stringify(arguments[i]));
+		} else {
+			logs.push(arguments[i]); 
+		}
+	};
+	$("#log").text(logs.join("; "));
+};

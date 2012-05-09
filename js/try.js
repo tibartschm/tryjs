@@ -17,7 +17,8 @@ $(document).ready(function(){
 			startRange,
 			endRange,
 			i,
-			markers;
+			markers,
+			$errorNotification;
 		try{
 			code = editor.getSession().getValue();
 			eval(code);
@@ -25,12 +26,14 @@ $(document).ready(function(){
 			for(i in markers){
 				session.removeMarker(i);
 			}
+			$("#error-notification").text("");
 		} catch(e) {
 			startRange = evt.data.range.start;
 			endRange = evt.data.range.end;
 			var r = new Range(startRange.row, startRange.column,
 								endRange.row, endRange.column);
-			session.addMarker(r, "error_marker","text");
+			session.addMarker(r, "error-marker","text");
+			$("#error-notification").text(e.message);
 		}
 	});
 });

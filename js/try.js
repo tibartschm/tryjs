@@ -30,7 +30,7 @@ $(document).ready(function(){
 			endRange = evt.data.range.end;
 			var r = new Range(startRange.row, startRange.column,
 								endRange.row, endRange.column);
-			session.addMarker(r, "ace_selected_word","text");
+			session.addMarker(r, "error_marker","text");
 		}
 	});
 });

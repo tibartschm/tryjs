@@ -32,7 +32,7 @@ $(document).ready(function(){
 			endRange = evt.data.range.end;
 			var r = new Range(startRange.row, startRange.column,
 								endRange.row, endRange.column);
-			session.addMarker(r, "nbverror-marker","text");
+			session.addMarker(r, "error-marker","text");
 			$("#error-notification").text(e.message);
 		}
 	});

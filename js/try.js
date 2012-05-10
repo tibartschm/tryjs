@@ -6,6 +6,7 @@ $(document).ready(function(){
 	JSMode = require("ace/mode/javascript").Mode;
 	Range = require('ace/range').Range;
 	editor = ace.edit("editor");
+	$("#editor").append("<div id='log'></div>")
 	session = editor.getSession();
 	
 	session.setMode(new JSMode());
@@ -39,16 +40,15 @@ $(document).ready(function(){
 });
 
 
-var log = function(){
-	var i,
-		logs;
-	logs = [];
-	for(i=0; i < arguments.length; i++){
-		if(typeof arguments[i] === "object"){
-			logs.push(JSON.stringify(arguments[i]));
-		} else {
-			logs.push(arguments[i]); 
-		}
-	};
-	$("#log").text(logs.join("; "));
+var log = function(obj, line){
+	var text;
+	if(typeof line != "number" || line < 0){
+		throw "wrong argumen exceptiont";
+	}
+	if(typeof obj === "object"){
+		text = JSON.stringify(obj);
+	} else {
+		text = obj; 
+	}
+	$("#log").text(text).css("top", 16 * line + "px");
 };

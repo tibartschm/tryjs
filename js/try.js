@@ -6,7 +6,7 @@ $(document).ready(function(){
 	JSMode = require("ace/mode/javascript").Mode;
 	Range = require('ace/range').Range;
 	editor = ace.edit("editor");
-	$("#editor").append("<div id='log'></div>")
+	$("#editor").append("<div id='logs'></div>")
 	session = editor.getSession();
 	
 	session.setMode(new JSMode());
@@ -21,6 +21,7 @@ $(document).ready(function(){
 			markers,
 			$errorNotification;
 		try{
+			$("#logs").empty();
 			code = editor.getSession().getValue();
 			eval(code);
 			markers = session.getMarkers();
@@ -41,7 +42,8 @@ $(document).ready(function(){
 
 
 var log = function(obj, line){
-	var text;
+	var text,
+		$log;
 	if(typeof line != "number" || line < 0){
 		throw "wrong argumen exceptiont";
 	}
@@ -50,5 +52,12 @@ var log = function(obj, line){
 	} else {
 		text = obj; 
 	}
-	$("#log").text(text).css("top", 16 * line + "px");
+	$log = $("#log-" + line);
+	console.log($log.length)
+	if($log.length){
+		$log.text(text);
+	}else{
+		$("#logs").append("<div class='log' id='log-" + line +"'>"+ text +"</div>")
+		$("#log-" + line).css("top", 16 * line + "px");
+	}
 };

@@ -43,6 +43,7 @@ $(document).ready(function(){
 
 var log = function(obj, line){
 	var text,
+		oldText,
 		$log;
 	if(typeof line != "number" || line < 0){
 		throw "wrong argumen exceptiont";
@@ -53,9 +54,9 @@ var log = function(obj, line){
 		text = obj; 
 	}
 	$log = $("#log-" + line);
-	console.log($log.length)
 	if($log.length){
-		$log.text(text);
+		oldText = $log.text();
+		$log.text(oldText + "; " + text);
 	}else{
 		$("#logs").append("<div class='log' id='log-" + line +"'>"+ text +"</div>")
 		$("#log-" + line).css("top", 16 * line + "px");
